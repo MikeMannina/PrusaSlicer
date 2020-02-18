@@ -460,11 +460,13 @@ int check_copy(const std::string &origin, const std::string &copy)
 	std::ifstream f2(copy, std::ifstream::in | std::ifstream::binary | std::ifstream::ate);
 
 	if (f1.fail() || f2.fail())
-		return -2;
+		return -4;
+	if (f2.fail())
+		return -5;
 
 	std::streampos fsize = f1.tellg();
 	if (fsize != f2.tellg())
-		return -2;
+		return -6;
 
 	f1.seekg(0, std::ifstream::beg);
 	f2.seekg(0, std::ifstream::beg);
